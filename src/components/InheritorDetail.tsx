@@ -126,7 +126,7 @@ export const InheritorDetail: React.FC<InheritorDetailProps> = ({ inheritor, onB
                             <div className="w-full aspect-square rounded-2xl bg-white shadow-inner flex items-center justify-center border-2 border-dashed border-gray-200 group-hover:border-[#C04851] transition-colors">
                                 <div className="text-center">
                                     <div className="text-3xl grayscale opacity-30 mb-2">QR</div>
-                                    <p className="text-[10px] text-gray-300">防伪溯源码</p>
+                                    <p className="text-[10px] text-gray-300">二维码</p>
                                 </div>
                             </div>
                         </div>
