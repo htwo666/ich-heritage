@@ -1,6 +1,5 @@
 import React from 'react';
 import { Inheritor } from '../types';
-import { Button } from './Button';
 
 interface InheritorCardProps {
   inheritor: Inheritor;

@@ -5,6 +5,7 @@ export interface Work {
   cycle: string;
   dimensions: string;
   images: string[];
+  video?: string;    // 新增：作品视频
   price: string;
   concept: string;
   socialSignificance: string;
@@ -15,6 +16,7 @@ export interface Inheritor {
   name: string;
   contact: string;
   skillAndLevel: string;
+  qrCode?: string;  // 新增：二维码图片
   bio: {
     birthDate?: string;
     birthPlace?: string;

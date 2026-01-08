@@ -47,11 +47,3 @@ export const INITIAL_INHERITORS: Inheritor[] = [
     ]
   }
 ];
-
-export const COLORS = {
-  primary: '#C04851', // Chinese Traditional Red (玉赭)
-  secondary: '#8c4356',
-  accent: '#e29c45',
-  bg: '#fcfaf7',
-  text: '#2c2c2c',
-};

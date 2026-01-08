@@ -6,6 +6,7 @@ export const INITIAL_INHERITORS: Inheritor[] = [
     name: '闫强强',
     contact: '15721688917',
     skillAndLevel: '山西省吕梁市非物质文化遗产代表性项目《络画（方山套色烙刻）》代表性传承人。',
+    qrCode: 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://htwo666.github.io/ich-heritage/inheritor/1',
     bio: {
       birthDate: '1984年4月',
       birthPlace: '山西省吕梁市方山县大武镇西相王村',
@@ -28,7 +29,12 @@ export const INITIAL_INHERITORS: Inheritor[] = [
         technique: '方山县葫芦烙刻市级传承人',
         cycle: '创作作品所需一天',
         dimensions: '带中国节总长 58cm*宽 4.5cm，葫芦作品长 30cm',
-        images: ['https://picsum.photos/seed/hulu1/800/600'],
+        images: [
+          'https://picsum.photos/seed/hulu1/800/600',
+          'https://picsum.photos/seed/hulu1-2/800/600',
+          'https://picsum.photos/seed/hulu1-3/800/600'
+        ],
+        video: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         price: '120元',
         concept: '作品以六枚小葫芦串联，制作成开口笑，寓意笑口常开、吐福纳气。融入五行周易阴阳之理。',
         socialSignificance: '依托非遗工坊模式带动村民就业增收；作为非遗进校园、进直播间的载体。'
@@ -39,7 +45,10 @@ export const INITIAL_INHERITORS: Inheritor[] = [
         technique: '方山葫芦烙刻市级传承人',
         cycle: '创作时间需要半天',
         dimensions: '长 38cm*宽 4cm',
-        images: ['https://picsum.photos/seed/hulu2/800/600'],
+        images: [
+          'https://picsum.photos/seed/hulu2/800/600',
+          'https://picsum.photos/seed/hulu2-2/800/600'
+        ],
         price: '66元',
         concept: '作品采用一对异型葫芦，借其天然形态塑造成大象鼻造型，寓意天生有"福相"。',
         socialSignificance: '非遗文创与文旅结合，产品可批量，助力就业增收。'
@@ -47,3 +56,11 @@ export const INITIAL_INHERITORS: Inheritor[] = [
     ]
   }
 ];
+
+export const COLORS = {
+  primary: '#C04851',
+  secondary: '#8c4356',
+  accent: '#e29c45',
+  bg: '#fcfaf7',
+  text: '#2c2c2c',
+};

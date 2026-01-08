@@ -4,8 +4,7 @@ export interface Work {
   technique: string;
   cycle: string;
   dimensions: string;
-  images: string[];  // 作品图片
-  video?: string;    // 新增：作品视频
+  images: string[];
   price: string;
   concept: string;
   socialSignificance: string;
@@ -16,7 +15,6 @@ export interface Inheritor {
   name: string;
   contact: string;
   skillAndLevel: string;
-  qrCode?: string;  // 新增：二维码图片
   bio: {
     birthDate?: string;
     birthPlace?: string;

@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Inheritor, ViewType } from './types';
 import { INITIAL_INHERITORS } from './constants';
-import { InheritorCard } from './components/InheritorCard';
-import { InheritorDetail } from './components/InheritorDetail';
-import { InheritorForm } from './components/InheritorForm';
-import { Button } from './components/Button';
 
 const App: React.FC = () => {
   const [inheritors, setInheritors] = useState<Inheritor[]>([]);
   const [currentView, setCurrentView] = useState<ViewType>('list');
-  const [selectedInheritorId, setSelectedInheritorId] = useState<string | null>(null);
-  const [editingInheritor, setEditingInheritor] = useState<Inheritor | null>(null);
 
   useEffect(() => {
     const savedData = localStorage.getItem('ich_data');
@@ -27,43 +21,8 @@ const App: React.FC = () => {
     }
   }, [inheritors]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentView, selectedInheritorId]);
-
-  const handleSave = (data: Inheritor) => {
-    const exists = inheritors.findIndex(i => i.id === data.id);
-    if (exists !== -1) {
-      const newList = [...inheritors];
-      newList[exists] = data;
-      setInheritors(newList);
-    } else {
-      setInheritors([data, ...inheritors]);
-    }
-    setEditingInheritor(null);
-    setCurrentView('list');
-  };
-
-  const handleDelete = (id: string) => {
-    setInheritors(inheritors.filter(i => i.id !== id));
-    setCurrentView('list');
-    setSelectedInheritorId(null);
-  };
-
-  const handleEdit = (inheritor: Inheritor) => {
-    setEditingInheritor(inheritor);
-    setCurrentView('upload');
-  };
-
-  const handleAddNew = () => {
-    setEditingInheritor(null);
-    setCurrentView('upload');
-  };
-
-  const selectedInheritor = inheritors.find(i => i.id === selectedInheritorId);
-
   return (
-    <div className="min-h-screen selection:bg-[#C04851]/10 selection:text-[#C04851]">
+    <div className="min-h-screen bg-gray-50">
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setCurrentView('list')}>
@@ -76,21 +35,12 @@ const App: React.FC = () => {
             </div>
           </div>
           
-          <nav className="hidden md:flex items-center gap-8">
-            <button
-              className={`text-sm font-medium ${currentView === 'list' ? 'text-[#C04851]' : 'text-gray-500'}`}
-              onClick={() => setCurrentView('list')}
-            >
-              馆藏展示
-            </button>
-            <Button variant="primary" className="h-10 px-6 rounded-full text-sm" onClick={handleAddNew}>
-              录入资料
-            </Button>
-          </nav>
-
-          <Button variant="primary" className="md:hidden h-10 w-10 p-0 rounded-full" onClick={handleAddNew}>
-            +
-          </Button>
+          <button 
+            className="px-6 py-2 bg-[#C04851] text-white rounded-lg hover:bg-[#a03c44]"
+            onClick={() => setCurrentView('list')}
+          >
+            馆藏展示
+          </button>
         </div>
       </header>
 
@@ -104,28 +54,41 @@ const App: React.FC = () => {
                   目前系统已录入 <span className="text-[#C04851] font-bold">{inheritors.length}</span> 位非遗守护者的档案及作品。
                 </p>
               </div>
-              <div className="flex gap-4">
-                <Button variant="primary" className="h-10 px-6 rounded-full text-sm" onClick={handleAddNew}>
-                  录入资料
-                </Button>
-              </div>
+              <button 
+                className="px-6 py-3 bg-[#C04851] text-white rounded-lg hover:bg-[#a03c44]"
+                onClick={() => alert('添加新传承人功能')}
+              >
+                录入资料
+              </button>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {inheritors.map(i => (
-                <InheritorCard 
-                  key={i.id} 
-                  inheritor={i} 
-                  onViewDetail={(id) => {
-                    setSelectedInheritorId(id);
-                    setCurrentView('detail');
-                  }} 
-                />
+              {inheritors.map(inheritor => (
+                <div 
+                  key={inheritor.id}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 p-6 cursor-pointer"
+                  onClick={() => alert(`查看 ${inheritor.name} 的详情\n工作经验: ${inheritor.bio.experience[0]}`)}
+                >
+                  <div className="h-32 bg-gradient-to-br from-[#f8eceb] to-[#f0d9d7] rounded-lg mb-4 flex items-center justify-center">
+                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-inner border-4 border-[#C04851]/10">
+                      <span className="text-2xl font-bold text-[#C04851] serif">{inheritor.name[0]}</span>
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800 serif mb-2">{inheritor.name}</h3>
+                  <p className="text-sm text-[#C04851] font-semibold mb-2">{inheritor.skillAndLevel.split('项目')[0]}项目</p>
+                  <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                    {inheritor.bio.experience[0]}
+                  </p>
+                  <div className="flex justify-between items-center pt-4 border-t border-gray-50">
+                    <span className="text-xs text-gray-400">作品: {inheritor.works.length} 件</span>
+                    <span className="text-[#C04851] text-sm font-medium">详情 →</span>
+                  </div>
+                </div>
               ))}
               
               <div 
-                className="border-2 border-dashed border-gray-200 rounded-3xl flex flex-col items-center justify-center p-8 cursor-pointer hover:border-[#C04851] hover:bg-white transition-all group min-h-[350px] bg-gray-50/20"
-                onClick={handleAddNew}
+                className="border-2 border-dashed border-gray-200 rounded-3xl flex flex-col items-center justify-center p-8 cursor-pointer hover:border-[#C04851] hover:bg-white transition-all group min-h-[300px] bg-gray-50/20"
+                onClick={() => alert('添加新传承人')}
               >
                 <div className="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center mb-4 group-hover:bg-[#C04851]/10 transition-colors">
                   <span className="text-2xl text-gray-300 group-hover:text-[#C04851]">+</span>
@@ -134,26 +97,6 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>
-        )}
-
-        {currentView === 'detail' && selectedInheritor && (
-          <InheritorDetail 
-            inheritor={selectedInheritor} 
-            onBack={() => setCurrentView('list')} 
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
-        )}
-
-        {currentView === 'upload' && (
-          <InheritorForm 
-            initialData={editingInheritor}
-            onSave={handleSave} 
-            onCancel={() => {
-              setEditingInheritor(null);
-              setCurrentView(selectedInheritorId ? 'detail' : 'list');
-            }} 
-          />
         )}
       </main>
 
